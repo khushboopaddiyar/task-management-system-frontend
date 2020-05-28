@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import UserContext from './context/UserContext'
 import Navbar from './components/Navbar'
-import Auth from './components/Auth'
-import Profile from './components/Profile'
-import Tasks from './components/Tasks'
+import Auth from './pages/Auth'
+import Profile from './pages/Profile'
+import Tasks from './pages/Tasks'
 
 const App = () => {
     const [user, setUser] = useState({

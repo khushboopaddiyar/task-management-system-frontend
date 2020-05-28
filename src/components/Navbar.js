@@ -63,7 +63,10 @@ const Navbar = () => {
                     <Button onClick={handleAlertClose} color="primary" autoFocus>
                         No
                     </Button>
-                    <Button onClick={user.logout} color="secondary">
+                    <Button onClick={() => {
+                        handleAlertClose()
+                        user.logout()
+                    }} color="secondary">
                         Yes
                     </Button>
                 </DialogActions>
