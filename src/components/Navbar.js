@@ -58,7 +58,7 @@ const Navbar = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Are you sure you want to Sign Out?"}</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleAlertClose} color="primary" autoFocus>
                         No

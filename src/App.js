@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import UserContext from './context/UserContext'
@@ -27,6 +27,14 @@ const App = () => {
             token: null
         })
     }
+    useEffect(() => {
+        fetch('https://taskify-123.herokuapp.com/api')
+            .then(res => res.json())
+            .then(json => {
+                console.log(`Welcome to Taksify!`)
+            })
+            .catch(err => console.log(err))
+    }, [])
     return (
         <BrowserRouter>
             <UserContext.Provider value={{ userId: user.userId, name: user.name, token: user.token, login, logout }}>
