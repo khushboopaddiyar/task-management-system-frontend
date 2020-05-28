@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Avatar, Button, Container, CssBaseline, TextField, Link, Grid, Typography, Snackbar, SnackbarContent } from '@material-ui/core'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { LockOutlined } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import UserContext from '../context/UserContext'
@@ -35,7 +35,10 @@ const Auth = () => {
         setMessage('')
         setOpen(false)
     }
-    const switchForm = () => setIsLogin(prev => !prev)
+    const switchForm = e => {
+        e.preventDefault()
+        setIsLogin(prev => !prev)
+    }
     const handleSubmit = async e => {
         e.preventDefault()
         const { name, email, password, confirmPassword } = e.currentTarget.elements
@@ -72,7 +75,7 @@ const Auth = () => {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlined />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Taskify{isLogin ? ' - Sign in' : ' - Sign Up'}
