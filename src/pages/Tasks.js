@@ -82,7 +82,7 @@ const Tasks = () => {
                 <LinearProgress className="mt-1" />
             </Container>}
             {!isLoading && tasks.length === 0 && NoTaskCard}
-            {!isLoading && <TaskList tasks={tasks} deleteTask={deleteTask} />}
+            {!isLoading && tasks.length !== 0 && <TaskList tasks={tasks} deleteTask={deleteTask} />}
             {!isLoading && <AddTask addTask={addTask} />}
             <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={handleSnackClose}>
                 <SnackbarContent message={snackMessage} />

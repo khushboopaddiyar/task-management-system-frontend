@@ -130,7 +130,7 @@ const Profile = () => {
                     <Button color="primary" variant="contained" type="submit">Update Profile</Button>
                 </form>
                 <form onSubmit={handleChangePassword} className="mt-1">
-                    <TextField 
+                    <TextField
                         variant="outlined"
                         margin="normal"
                         fullWidth
