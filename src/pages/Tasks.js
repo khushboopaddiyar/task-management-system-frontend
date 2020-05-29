@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Container, Typography, Card, CardContent, LinearProgress } from '@material-ui/core'
+import { Container, Typography, Card, CardContent, LinearProgress, Snackbar, SnackbarContent } from '@material-ui/core'
 
 import UserContext from '../context/UserContext'
 import AddTask from '../components/AddTask'
@@ -9,6 +9,16 @@ const Tasks = () => {
     const user = useContext(UserContext)
     const [tasks, setTasks] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [isSnackOpen, setIsSnackOpen] = useState(false)
+    const [snackMessage, setSnackMessage] = useState('')
+    const handleSnackOpen = message => {
+        setIsSnackOpen(true)
+        setSnackMessage(message)
+    }
+    const handleSnackClose = () => {
+        setIsSnackOpen(false)
+        setSnackMessage('')
+    }
     useEffect(() => {
         const getTasks = async () => {
             try {
@@ -29,13 +39,28 @@ const Tasks = () => {
         getTasks()
     }, [user.token])
     const addTask = data => {
-        console.log(data)
-        setTasks(prevTasks => {
-            return [
-                ...prevTasks,
-                data
-            ]
+        fetch('https://taskify-123.herokuapp.com/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: user.token
+            },
+            body: JSON.stringify(data)
         })
+            .then(res => res.json())
+            .then(json => {
+                if (json.success) {
+                    setTasks(prevTasks => {
+                        return [
+                            ...prevTasks,
+                            json.data.task
+                        ]
+                    })
+                } else {
+                    handleSnackOpen(json.message ?? 'Something Went Wrong!')
+                }
+            })
+            .catch(err => console.log(err))
     }
     const NoTaskCard = (
         <Container maxWidth="xs" className="mt-1">
@@ -54,6 +79,9 @@ const Tasks = () => {
             {!isLoading && tasks.length === 0 && NoTaskCard}
             {!isLoading && <TaskList tasks={tasks} />}
             {!isLoading && <AddTask addTask={addTask} />}
+            <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={handleSnackClose}>
+                <SnackbarContent message={snackMessage} />
+            </Snackbar>
         </div>
     )
 }

@@ -1,8 +1,10 @@
 import React from 'react'
 
-const TaskList = () => {
+const TaskList = props => {
     return (
-        <></>
+        <>
+            {props.tasks.length}
+        </>
     )
 }
 
