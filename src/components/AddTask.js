@@ -39,7 +39,7 @@ const AddTask = props => {
         const data = {
             description: description.value,
             label: label.value,
-            dueDate: dueDate.value
+            dueDate: new Date(dueDate.value)
         }
         props.addTask(data)
     }
@@ -86,6 +86,8 @@ const AddTask = props => {
                                 <MenuItem value="Unlabelled" selected>
                                     <em>None</em>
                                 </MenuItem>
+                                <MenuItem value="Work">Work</MenuItem>
+                                <MenuItem value="Personal">Personal</MenuItem>
                                 <MenuItem value="Shopping">Shopping</MenuItem>
                                 <MenuItem value="Other">Other</MenuItem>
                             </Select>

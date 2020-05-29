@@ -65,16 +65,47 @@ const Tasks = () => {
     const changeTaskStatus = id => {
         setTasks(prevTasks => {
             return prevTasks.map(task => {
-                if (task._id === id && task.status < 2)
+                if (task._id === id && task.status < 2) {
                     task.status++
+                    task.updatedAt = new Date().toISOString()
+                }
                 return task
             })
         })
+        fetch('https://taskify-123.herokuapp.com/api/tasks/' + id, {
+            method: 'PATCH',
+            headers: {
+                authorization: user.token
+            }
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.success) {
+                } else {
+                    handleSnackOpen(json.message ?? 'Something Went Wrong!')
+                }
+            })
+            .catch(err => console.log(err))
     }
     const deleteTask = id => {
         setTasks(prevTasks => {
             return prevTasks.filter(task => task._id !== id)
         })
+        fetch('https://taskify-123.herokuapp.com/api/tasks/' + id, {
+            method: 'DELETE',
+            headers: {
+                authorization: user.token
+            }
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.success) {
+                    handleSnackOpen('Deleted successfully!')
+                } else {
+                    handleSnackOpen(json.message ?? 'Something Went Wrong!')
+                }
+            })
+            .catch(err => console.log(err))
     }
     const NoTaskCard = (
         <Container maxWidth="xs" className="mt-1">
@@ -91,7 +122,7 @@ const Tasks = () => {
                 <LinearProgress className="mt-1" />
             </Container>}
             {!isLoading && tasks.length === 0 && NoTaskCard}
-            {!isLoading && tasks.length !== 0 && <TaskList tasks={tasks} changeTaskStatus={changeTaskStatus} deleteTask={deleteTask} openSnackBar={handleSnackOpen} />}
+            {!isLoading && tasks.length !== 0 && <TaskList tasks={tasks} changeTaskStatus={changeTaskStatus} deleteTask={deleteTask} />}
             {!isLoading && <AddTask addTask={addTask} />}
             <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={handleSnackClose}>
                 <SnackbarContent message={snackMessage} />

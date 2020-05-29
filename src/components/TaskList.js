@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Paper, Tabs, Tab } from '@material-ui/core'
+import { Container, Paper, Tabs, Tab, Divider } from '@material-ui/core'
 import { FormatListBulleted, DoneAll, BarChart } from '@material-ui/icons'
 
 import Todos from './Todos'
@@ -27,6 +27,7 @@ const TaskList = props => {
                     <Tab icon={<DoneAll />} label="Completed" />
                     <Tab icon={<BarChart />} label="Insights" />
                 </Tabs>
+                <Divider />
                 <Container>
                     {tab === 0 && <Todos tasks={tasks} changeTaskStatus={props.changeTaskStatus} deleteTask={props.deleteTask} />}
                     {tab === 1 && <CompletedTodos tasks={completedTasks} />}

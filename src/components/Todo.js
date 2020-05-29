@@ -38,10 +38,10 @@ const Todo = props => {
                         {props.task.description}
                     </Typography>
                     <Typography className={classes.pos} color={isDue ? 'secondary' : 'textSecondary'}>
-                        {"Due " + d2.toUTCString().slice(0, -4)}
+                        {"Due " + d2.toLocaleString()}
                     </Typography>
                     {props.task.status === 2 && <Typography className={classes.pos} color="primary">
-                        {"Done on " + new Date(props.task.updatedAt).toUTCString().slice(0, -4)}
+                        {"Done on " + new Date(props.task.updatedAt).toLocaleString()}
                     </Typography>}
                     <Chip label={props.task.label} variant="outlined" />
                 </CardContent>
