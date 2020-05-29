@@ -37,6 +37,10 @@ const Tasks = () => {
             }
         }
         getTasks()
+        const updatingTasks = setInterval(getTasks, 1000 * 60 * 5)
+        return function cleanup() {
+            clearInterval(updatingTasks)
+        }
     }, [user.token])
     const addTask = data => {
         fetch('https://taskify-123.herokuapp.com/api/tasks', {
