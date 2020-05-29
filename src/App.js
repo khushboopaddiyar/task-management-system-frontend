@@ -19,6 +19,11 @@ const App = () => {
             name,
             token
         })
+        localStorage.setItem('user', JSON.stringify({
+            userId,
+            name,
+            token
+        }))
     }
     const logout = () => {
         setUser({
@@ -26,6 +31,7 @@ const App = () => {
             name: null,
             token: null
         })
+        localStorage.removeItem('user')
     }
     useEffect(() => {
         fetch('https://taskify-123.herokuapp.com/api')
@@ -34,22 +40,29 @@ const App = () => {
                 console.log(`Welcome to Taksify!`)
             })
             .catch(err => console.log(err))
+        const userData = localStorage.getItem('user')
+        if (userData) {
+            const user = JSON.parse(userData)
+            login(user.userId, user.name, user.token)
+        }
     }, [])
     return (
         <BrowserRouter>
             <UserContext.Provider value={{ userId: user.userId, name: user.name, token: user.token, login, logout }}>
                 <Navbar />
-                <Switch>
-                    {!user.token && <Redirect from="/" to="/auth" exact />}
-                    {!user.token && <Redirect from="/profile" to="/auth" exact />}
-                    {!user.token && <Redirect from="/tasks" to="/auth" exact />}
-                    {user.token && <Redirect from="/" to="/tasks" exact />}
-                    {user.token && <Redirect from="/auth" to="/tasks" exact />}
-                    <Route path="/auth" component={Auth} exact />
-                    <Route path="/profile" component={Profile} exact />
-                    <Route path="/tasks" component={Tasks} exact />
-                    <Redirect from="*" to="/" />
-                </Switch>
+                <main className="mt-5">
+                    <Switch>
+                        {!user.token && <Redirect from="/" to="/auth" exact />}
+                        {!user.token && <Redirect from="/profile" to="/auth" exact />}
+                        {!user.token && <Redirect from="/tasks" to="/auth" exact />}
+                        {user.token && <Redirect from="/" to="/tasks" exact />}
+                        {user.token && <Redirect from="/auth" to="/tasks" exact />}
+                        <Route path="/auth" component={Auth} exact />
+                        <Route path="/profile" component={Profile} exact />
+                        <Route path="/tasks" component={Tasks} exact />
+                        <Redirect from="*" to="/" />
+                    </Switch>
+                </main>
             </UserContext.Provider>
         </BrowserRouter>
     )

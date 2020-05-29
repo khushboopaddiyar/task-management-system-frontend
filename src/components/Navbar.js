@@ -75,7 +75,7 @@ const Navbar = () => {
     )
     return (
         <div className={classes.root}>
-            <AppBar position="relative">
+            <AppBar>
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         Taskify

@@ -62,6 +62,9 @@ const Tasks = () => {
             })
             .catch(err => console.log(err))
     }
+    const changeTaskStatus = id => {
+
+    }
     const deleteTask = id => {
         setTasks(prevTasks => {
             return prevTasks.filter(task => task._id !== id)
@@ -82,7 +85,7 @@ const Tasks = () => {
                 <LinearProgress className="mt-1" />
             </Container>}
             {!isLoading && tasks.length === 0 && NoTaskCard}
-            {!isLoading && tasks.length !== 0 && <TaskList tasks={tasks} deleteTask={deleteTask} />}
+            {!isLoading && tasks.length !== 0 && <TaskList tasks={tasks} changeTaskStatus={changeTaskStatus} deleteTask={deleteTask} handleSnackOpen={handleSnackOpen} />}
             {!isLoading && <AddTask addTask={addTask} />}
             <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={handleSnackClose}>
                 <SnackbarContent message={snackMessage} />
