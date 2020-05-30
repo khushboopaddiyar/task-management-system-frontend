@@ -44,7 +44,7 @@ const Todos = props => {
             {!isSearch && props.tasks.map(task => <Todo key={task._id} task={task} changeTaskStatus={props.changeTaskStatus} deleteTask={props.deleteTask} />)}
             {isSearch && searchedTasks.length === 0 && <Typography>
                 Sorry, no result found
-                <br/>
+                <br />
                 You can also search for 0 and 1 to find New and Doing task
             </Typography>}
             {isSearch && searchedTasks.length !== 0 && searchedTasks.map(task => <Todo key={task._id} task={task} changeTaskStatus={props.changeTaskStatus} deleteTask={props.deleteTask} />)}
