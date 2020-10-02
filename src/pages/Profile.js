@@ -168,7 +168,7 @@ const Profile = () => {
                 <Typography variant="caption">{"Last Updated At " + profile.updatedAt.toString()}</Typography>
                 <br />
             </Container>}
-            <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={handleSnackClose}>
+            <Snackbar open={isSnackOpen} autoHideDuration={4000} onClose={handleSnackClose}>
                 <SnackbarContent message={snackMessage} />
             </Snackbar>
         </div>
